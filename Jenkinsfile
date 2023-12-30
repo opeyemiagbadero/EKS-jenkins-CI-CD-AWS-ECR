@@ -6,14 +6,18 @@ pipeline {
         maven 'maven-3.6'
     }
 
+     environment {
+        DOCKER_SERVER = "690769870672.dkr.ecr.eu-west-2.amazonaws.com"
+        DOCKER_REPO = "${DOCKER_SERVER}/java-maven-app"
+    }
     stages {
-        stage('increment version') {
+        stage("increment Version") {
             steps {
                 script {
-                    echo 'incrementing the app version...'
-                    sh 'mvn build-helper:parse-version versions:set ' +
-                       '-DnewVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.nextIncrementalVersion} ' +
-                       'versions:commit'
+                    echo 'incrementing version'
+                    sh 'mvn build-helper:parse-version versions:set \
+                        -DnewVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.nextIncrementalVersion} \
+                        versions:commit'
                     def matcher = readFile('pom.xml') =~ '<version>(.+)</version>'
                     def version = matcher[0][1]
                     env.IMAGE_NAME = "$version-$BUILD_NUMBER"
@@ -21,48 +25,40 @@ pipeline {
             }
         }
 
-        stage('Build app') {
+        stage("Build App") {
             steps {
                 script {
-                    echo 'Building the application...'
+                    echo 'building the app'
                     sh 'mvn clean package'
                 }
             }
         }
-
-        stage('Build image') {
-            environment {
-                DOCKER_REPO_SERVER = '690769870672.dkr.ecr.eu-west-2.amazonaws.com'
-                DOCKER_REPO = '${DOCKER_REPO_SERVER}/java-maven-app'
-            }
+        stage('Build Image') {
             steps {
                 script {
-                    echo 'Building the Docker image...'
-                    withCredentials([usernamePassword(credentialsId: 'ecr-credentials', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
-                        sh """
-                            docker build -t ${DOCKER_REPO}:${IMAGE_NAME} .
-                            echo ${PASSWORD} | docker login -u ${USERNAME} --password-stdin ${DOCKER_REPO_SERVER}
-                            docker push ${DOCKER_REPO}:${IMAGE_NAME}
-                        """
+                    echo "building the docker image..."
+                    withCredentials([usernamePassword(credentialsId: 'ecr-credentials', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+                        sh "docker build -t ${DOCKER_REPO}:${IMAGE_NAME} ."
+                        sh "echo $PASS | docker login -u $USER --password-stdin ${DOCKER_SERVER}"
+                        sh "docker push ${DOCKER_REPO}:${IMAGE_NAME}"
                     }
                 }
             }
         }
 
-        stage('Deploy') {
-            environment {
-                AWS_ACCESS_KEY_ID = credentials ('JENKINS-ACCESS-KEY-ID')
-                AWS_SECRET_ACCESS_KEY =credentials ('JENKINS-SECRET-ACCESS-KEY')
+        stage('Deploy_Env') {
+            environment{
+                AWS_ACCESS_KEY_ID = credentials('Jenkins-AWS-ACCESS-KEY')
+                AWS_SECRET_ACCESS_KEY = credentials('Jenkins-AWS-SECRET-ACCESS-KEY')
                 APP_NAME = 'java-maven-app'
             }
             steps {
                 script {
-                    echo 'Deploying docker image ...'
+                    echo "Deploying Docker Image"
                     sh 'envsubst < kubernetes/deployment.yaml | kubectl apply -f -'
                     sh 'envsubst < kubernetes/service.yaml | kubectl apply -f -'
-                    
-                }               
-                
+                   
+                }
             }
         }
         stage('commit version update') {
