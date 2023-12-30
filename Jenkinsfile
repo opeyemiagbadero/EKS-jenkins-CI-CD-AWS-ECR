@@ -31,14 +31,18 @@ pipeline {
         }
 
         stage('Build image') {
+            environment {
+                DOCKER_REPO_SERVER = '690769870672.dkr.ecr.eu-west-2.amazonaws.com'
+                DOCKER_REPO = '${DOCKER_REPO_SERVER}/java-maven-app'
+            }
             steps {
                 script {
                     echo 'Building the Docker image...'
-                    withCredentials([usernamePassword(credentialsId: 'docker-hub-repo', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
+                    withCredentials([usernamePassword(credentialsId: 'ecr-credentials', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
                         sh """
-                            docker build -t opeyemiagbadero/demo-app:${IMAGE_NAME} .
-                            echo \${PASSWORD} | docker login -u \${USERNAME} --password-stdin
-                            docker push opeyemiagbadero/demo-app:${IMAGE_NAME}
+                            docker build -t ${DOCKER_REPO}:${IMAGE_NAME} .
+                            echo \${PASSWORD} | docker login -u \${USERNAME} --password-stdin \${DOCKER_REPO_SERVER}
+                            docker push ${DOCKER_REPO}:${IMAGE_NAME}
                         """
                     }
                 }
