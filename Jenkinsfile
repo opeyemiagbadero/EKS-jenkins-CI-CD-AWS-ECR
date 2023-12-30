@@ -41,7 +41,7 @@ pipeline {
                     withCredentials([usernamePassword(credentialsId: 'ecr-credentials', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
                         sh """
                             docker build -t ${DOCKER_REPO}:${IMAGE_NAME} .
-                            echo \${PASSWORD} | docker login -u \${USERNAME} --password-stdin ${DOCKER_REPO_SERVER}
+                            echo ${PASSWORD} | docker login -u ${USERNAME} --password-stdin ${DOCKER_REPO_SERVER}
                             docker push ${DOCKER_REPO}:${IMAGE_NAME}
                         """
                     }
