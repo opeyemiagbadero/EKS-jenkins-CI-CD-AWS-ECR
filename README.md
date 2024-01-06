@@ -11,6 +11,7 @@ Created Credential for ECR repository in Jenkins
 
 Created Secret for AWS ECR Registry in EKS cluster and adjusted reference in deployment ﬁle to fecth the image from AWS ECR 
 
+![3  secret used in deployment stage to fetch  the image from AWS ECR](https://github.com/opeyemiagbadero/EKS-jenkins-CI-CD-AWS-ECR/assets/79456052/5e452448-d7b4-435d-8b3a-029754205bcb)
 
 ![4  edit the deployment file to input the name of the secret](https://github.com/opeyemiagbadero/EKS-jenkins-CI-CD-AWS-ECR/assets/79456052/b5b124ea-98e0-4e34-9dbe-81e56cb2ee99)
 
