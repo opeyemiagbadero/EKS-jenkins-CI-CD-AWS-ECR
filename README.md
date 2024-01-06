@@ -3,7 +3,8 @@ This is an overview of how to deploy into a kubernetes cluster from a Jenkins CI
 
 The  deployment and service yaml files used in the  EKS-jenkins-CI-CD-AWS-docker project were used and updated for this project.
 
-![0 a deployment yaml file](https://github.com/opeyemiagbadero/EKS-jenkins-CI-CD-AWS-ECR/assets/79456052/c6be3dc4-1dd4-484d-9f79-7472da68976e)
+
+![0 a deployment yaml file](https://github.com/opeyemiagbadero/EKS-jenkins-CI-CD-AWS-ECR/assets/79456052/8f14ebd0-4a02-4f02-aa57-3525e8940c6f)
 
 
 ![0 b service yaml file](https://github.com/opeyemiagbadero/EKS-jenkins-CI-CD-AWS-ECR/assets/79456052/d7a19c49-3adc-419f-ad69-31274ac19ff2)
