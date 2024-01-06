@@ -1,5 +1,14 @@
 ## EKS-jenkins-CI-CD-AWS-ECR
-This is an overview of how to deploy into a kubernetes cluster from a Jenkins CI/CD through AWS ECR. The prerequisites of the project include the installation of Jenkins (from a docker image) on a container, setup of the jenkins server, installation of docker, AWS cli, kubectl, AWS Iam authenticator and AWS credentials inside the jenkins container. The same deployment and service yaml files used in the  EKS-jenkins-CI-CD-AWS-docker project were used in this project also
+This is an overview of how to deploy into a kubernetes cluster from a Jenkins CI/CD through AWS ECR. The prerequisites of the project include the installation of Jenkins (from a docker image) on a container, setup of the jenkins server, installation of docker, AWS cli, kubectl, AWS Iam authenticator and AWS credentials inside the jenkins container. 
+
+The  deployment and service yaml files used in the  EKS-jenkins-CI-CD-AWS-docker project were used and updated for this project.
+
+![0 a deployment yaml file](https://github.com/opeyemiagbadero/EKS-jenkins-CI-CD-AWS-ECR/assets/79456052/c6be3dc4-1dd4-484d-9f79-7472da68976e)
+
+
+![0 b service yaml file](https://github.com/opeyemiagbadero/EKS-jenkins-CI-CD-AWS-ECR/assets/79456052/d7a19c49-3adc-419f-ad69-31274ac19ff2)
+
+Created Deployment and Service yaml files for the app deployment
 
 Created an ECR in AWS called java-mave-app
 
