@@ -14,6 +14,8 @@ Created Secret for AWS ECR Registry in EKS cluster and adjusted reference in dep
 ![3  secret used in deployment stage to fetch  the image from AWS ECR](https://github.com/opeyemiagbadero/EKS-jenkins-CI-CD-AWS-ECR/assets/79456052/338a873e-e94b-4b2a-83da-d2b1df0a4398)
 
 
+![4  edit the deployment file to input the name of the secret](https://github.com/opeyemiagbadero/EKS-jenkins-CI-CD-AWS-ECR/assets/79456052/b5b124ea-98e0-4e34-9dbe-81e56cb2ee99)
+
 Updated Jenkinsﬁle used in the EKS-jenkins-CI-CD-AWS-docker to set environment variables with envsubst.
 
 
