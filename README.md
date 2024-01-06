@@ -17,9 +17,8 @@ Created Secret for AWS ECR Registry in EKS cluster and adjusted reference in dep
 
 Updated Jenkinsﬁle used in the EKS-jenkins-CI-CD-AWS-docker to set environment variables with envsubst.
 
-![9  Adjusted Jenkinsﬁle as used in the EKS-cluster-deployment-using-Jenkins repo to set environment variables with envsubst
 
-editted the Jenkinsfile to reflect the envsubst and the new environmental variables](https://github.com/opeyemiagbadero/EKS-jenkins-CI-CD-AWS-ECR/assets/79456052/746eaa21-0bf0-4ad0-8f37-97c802836f0d)
+![9ADJUS~1](https://github.com/opeyemiagbadero/EKS-jenkins-CI-CD-AWS-ECR/assets/79456052/0bc92ea8-e715-455f-a799-d11a0796987e)
 
 Executed Jenkins Pipeline
 
